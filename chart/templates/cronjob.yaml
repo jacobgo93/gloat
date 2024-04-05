@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: tsunami-scan-cronjob
+spec:
+  schedule: "0 0 * * *"  # Run every day at midnight
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: tsunami-scan-container
+            image: gojacob93/tests:tsunami-gloat-1.1.2 
+            env:
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: tsunami-config
+                  key: slack-address
+            args:
+            - /bin/bash
+            - -c
+            - "./run_scan_and_parse.sh $(cat /etc/config/ips.txt) \"$SLACK_WEBHOOK_URL\""
+            volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true
+          restartPolicy: OnFailure
+          volumes:
+          - name: config-volume
+            configMap:
+              name: tsunami-config
+              defaultMode: 420
+

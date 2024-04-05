@@ -27,13 +27,17 @@ RUN ./gradlew shadowJar \
     && cp "$(find "./" -name "tsunami-main-*-cli.jar")" /usr/tsunami/tsunami.jar \
     && cp ./tsunami.yaml /usr/tsunami
 
-# Copy the script
+# Copy the script and requirements file
 COPY run_scan_and_parse.sh /usr/tsunami/run_scan_and_parse.sh
 COPY tsunami_output_parser.py /usr/tsunami/tsunami_output_parser.py
+COPY requirements.txt /usr/tsunami/requirements.txt
 
 # Set execute permissions
 RUN chmod +x /usr/tsunami/run_scan_and_parse.sh
 RUN chmod +x /usr/tsunami/tsunami_output_parser.py
+
+# Install Python dependencies
+RUN pip3 install --no-cache-dir -r /usr/tsunami/requirements.txt
 
 # Stage 2: Release
 FROM adoptopenjdk/openjdk13:debianslim-jre

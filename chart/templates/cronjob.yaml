@@ -10,7 +10,7 @@ spec:
         spec:
           containers:
           - name: tsunami-scan-container
-            image: gojacob93/tests:tsunami-gloat-1.1.2 
+            image: gojacob93/tests:tsunami-gloat-1.1.3
             env:
             - name: SLACK_WEBHOOK_URL
               valueFrom:

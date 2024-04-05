@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tsunami-config
+data:
+  slack-address: "YOUR_SLACK_WEBHOOK_URL_HERE"
+  ips.txt: |
+    192.168.1.1
+    192.168.1.2
+    192.168.1.3
+

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tsunami-scan-cronjob
+description: A Helm chart to deploy Tsunami scan CronJob on Kubernetes
+version: 0.1.0
+appVersion: 1.16.0
+

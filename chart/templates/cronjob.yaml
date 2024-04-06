@@ -10,17 +10,15 @@ spec:
         spec:
           containers:
           - name: tsunami-scan-container
-            image: gojacob93/tests:tsunami-gloat-1.1.2 
+            image: gojacob93/tests:tsunami-gloat-2.0.2
             env:
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 configMapKeyRef:
                   name: tsunami-config
                   key: slack-address
-            args:
-            - /bin/bash
-            - -c
-            - "./run_scan_and_parse.sh $(cat /etc/config/ips.txt) \"$SLACK_WEBHOOK_URL\""
+            - name: IP_LIST_PATH
+              value: "/etc/config/ips.txt"
             volumeMounts:
             - name: config-volume
               mountPath: /etc/config

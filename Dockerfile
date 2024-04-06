@@ -51,6 +51,8 @@ RUN apt-get update \
 
 WORKDIR /usr/tsunami
 RUN mkdir /usr/tsunami/logs
+RUN touch /usr/tsunami/ip_list.txt
+ENV IP_LIST_PATH /usr/tsunami/ip_list.txt
 
 COPY --from=0 /usr/tsunami /usr/tsunami
 
